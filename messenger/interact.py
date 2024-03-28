@@ -2,7 +2,7 @@
 # COMPONENT:
 #    INTERACT
 # Author:
-#    Br. Helfrich, Kyle Mueller, <your name here if you made a change>
+#    Br. Helfrich, Kyle Mueller, Efrain Gomez Fajardo
 # Summary: 
 #    This class allows one user to interact with the system
 ########################################################################
@@ -14,16 +14,17 @@ import messages, control
 # User has a name and a password
 ###############################################################
 class User:
-    def __init__(self, name, password):
+    def __init__(self, name, password, control_level):
         self.name = name
         self.password = password
+        self.control_level = control.Control(control_level)
 
 userlist = [
-   [ "AdmiralAbe",     "password" ],  
-   [ "CaptainCharlie", "password" ], 
-   [ "SeamanSam",      "password" ],
-   [ "SeamanSue",      "password" ],
-   [ "SeamanSly",      "password" ]
+   [ "AdmiralAbe",     "password", "Secret"       ],  
+   [ "CaptainCharlie", "password", "Privileged"   ], 
+   [ "SeamanSam",      "password", "Confidential" ],
+   [ "SeamanSue",      "password", "Confidential" ],
+   [ "SeamanSly",      "password", "Confidential" ]
 ]
 
 ###############################################################
@@ -45,6 +46,7 @@ class Interact:
     # Authenticate the user and get him/her all set up
     ##################################################
     def __init__(self, username, password, messages):
+        self._user_control_level = "Public"
         self._authenticate(username, password)
         self._username = username
         self._p_messages = messages
@@ -75,7 +77,8 @@ class Interact:
     def add(self):
         self._p_messages.add(self._prompt_for_line("message"),
                              self._username,
-                             self._prompt_for_line("date"))
+                             self._prompt_for_line("date"),
+                             self._user_control_level)
 
     ##################################################
     # INTERACT :: UPDATE
@@ -116,6 +119,7 @@ class Interact:
     ################################################## 
     def _authenticate(self, username, password):
         id_ = self._id_from_user(username)
+        self._user_control_level = self._control_from_user(id_)
         return ID_INVALID != id_ and password == users[id_].password
 
     ##################################################
@@ -127,6 +131,13 @@ class Interact:
             if username == users[id_user].name:
                 return id_user
         return ID_INVALID
+    
+    ##################################################
+    # INTERACT :: CONTROL FROM USER
+    # Find the control of a given user
+    ################################################## 
+    def _control_from_user(self, id) -> int:
+        return users[id].control_level if id != -1 else 1
 
 #####################################################
 # INTERACT :: DISPLAY USERS
