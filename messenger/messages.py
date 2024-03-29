@@ -51,7 +51,7 @@ class Messages:
     def update(self, id, text, user_control):
         for m in self._messages:
             if m.get_id() == id:
-                if control.Control.security_condition_read(user_control, m.get_control_level()):
+                if control.Control.security_condition_write(user_control, m.get_control_level()):
                     m.update_text(text)
 
     ##################################################
@@ -61,7 +61,7 @@ class Messages:
     def remove(self, id, user_control):
         for m in self._messages:
             if m.get_id() == id:
-                if control.Control.security_condition_read(user_control, m.get_control_level()):
+                if control.Control.security_condition_write(user_control, m.get_control_level()):
                     m.clear()
 
     ##################################################
