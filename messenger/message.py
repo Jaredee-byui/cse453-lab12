@@ -39,7 +39,7 @@ class Message:
         self._text = text
         self._author = author
         self._date = date
-        self._control_level = control.Control(text_control)
+        self._control_level = control.Control.get_control_level(text_control)
         self._id = Message._id_next
         Message._id_next += 1
         self._empty = False

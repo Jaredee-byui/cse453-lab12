@@ -17,14 +17,15 @@ class User:
     def __init__(self, name, password, control_level):
         self.name = name
         self.password = password
-        self.control_level = control.Control(control_level)
+        self.control_level = control.Control.get_control_level(control_level)
 
 userlist = [
    [ "AdmiralAbe",     "password", "Secret"       ],  
    [ "CaptainCharlie", "password", "Privileged"   ], 
    [ "SeamanSam",      "password", "Confidential" ],
    [ "SeamanSue",      "password", "Confidential" ],
-   [ "SeamanSly",      "password", "Confidential" ]
+   [ "SeamanSly",      "password", "Confidential" ],
+   [ "Public",      "password", "Public" ]
 ]
 
 ###############################################################
@@ -46,7 +47,7 @@ class Interact:
     # Authenticate the user and get him/her all set up
     ##################################################
     def __init__(self, username, password, messages):
-        self._user_control_level = "Public"
+        self._user_control_level = control.Control.get_control_level("Public")
         self._authenticate(username, password)
         self._username = username
         self._p_messages = messages

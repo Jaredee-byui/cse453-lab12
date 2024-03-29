@@ -70,7 +70,7 @@ def session(messages):
     }
 
     while session_open:
-        print(interact_._user_control_level)
+        # print(interact_._user_control_level)
         option = input(f"{username}> ")
         exec(options.get(option, "print(f\"Unknown option: \'{option}\'\");"))
 

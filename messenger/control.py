@@ -17,19 +17,22 @@ class Control:
     """
     Confidentiality control following the Bell-LaPadula model
     """
-
     def __init__(self, text_control: str):
         self._control_access = CONTROL_LEVEL[text_control]
 
-    def security_condition_read(self, user, message) -> bool:
+    def get_control_level(text_control: str):
+        control_access = CONTROL_LEVEL[text_control]
+        return control_access
+
+    def security_condition_read(user_control_level, message_control_level) -> bool:
         """
         Checks that the user has access to read the specified asset
         """
-        return user >= message
+        return user_control_level >= message_control_level
 
-    def security_condition_write(self, user, message) -> bool:
+    def security_condition_write(user_control_level, message_control_level) -> bool:
         
-        return user <= message
+        return user_control_level <= message_control_level
 
 
     # def Check_message_visibility(username, message, ):
