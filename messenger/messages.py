@@ -43,6 +43,14 @@ class Messages:
                     m.display_text()
                     return True
         return False
+    
+    def show_write(self, id, user_control):
+        for m in self._messages:
+            if m.get_id() == id:
+                if control.Control.security_condition_write(user_control, m.get_control_level()):
+                    m.display_text()
+                    return True
+        return False
 
     ##################################################
     # MESSAGES :: UPDATE
@@ -53,6 +61,7 @@ class Messages:
             if m.get_id() == id:
                 if control.Control.security_condition_write(user_control, m.get_control_level()):
                     m.update_text(text)
+                
 
     ##################################################
     # MESSAGES :: REMOVE
