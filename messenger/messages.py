@@ -27,38 +27,42 @@ class Messages:
     # MESSAGES :: DISPLAY
     # Display the list of messages
     ################################################## 
-    def display(self):
+    def display(self, user_control):
         for m in self._messages:
-            m.display_properties()
+            if control.security_condition_read(user_control, m.get_control_level()):
+                m.display_properties()
 
     ##################################################
     # MESSAGES :: SHOW
     # Show a single message
     ################################################## 
-    def show(self, id):
+    def show(self, id, user_control):
         for m in self._messages:
             if m.get_id() == id:
-                m.display_text()
-                return True
+                if control.security_condition_read(user_control, m.get_control_level()):
+                    m.display_text()
+                    return True
         return False
 
     ##################################################
     # MESSAGES :: UPDATE
     # Update a single message
     ################################################## 
-    def update(self, id, text):
+    def update(self, id, text, user_control):
         for m in self._messages:
             if m.get_id() == id:
-                m.update_text(text)
+                if control.security_condition_read(user_control, m.get_control_level()):
+                    m.update_text(text)
 
     ##################################################
     # MESSAGES :: REMOVE
     # Remove a single message
     ################################################## 
-    def remove(self, id):
+    def remove(self, id, user_control):
         for m in self._messages:
             if m.get_id() == id:
-                m.clear()
+                if control.security_condition_read(user_control, m.get_control_level()):
+                    m.clear()
 
     ##################################################
     # MESSAGES :: ADD

@@ -21,13 +21,13 @@ class Control:
     def __init__(self, text_control: str):
         self._control_access = CONTROL_LEVEL[text_control]
 
-    def _security_condition_read(self, user, message) -> bool:
+    def security_condition_read(self, user, message) -> bool:
         """
         Checks that the user has access to read the specified asset
         """
         return user >= message
 
-    def _security_condition_write(self, user, message) -> bool:
+    def security_condition_write(self, user, message) -> bool:
         
         return user <= message
 

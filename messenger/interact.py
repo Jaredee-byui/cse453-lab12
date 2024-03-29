@@ -57,8 +57,8 @@ class Interact:
     ##################################################
     def show(self):
         id_ = self._prompt_for_id("display")
-        if not self._p_messages.show(id_):
-            print(f"ERROR! Message ID \'{id_}\' does not exist")
+        if not self._p_messages.show(id_, self._user_control_level):
+            print(f"ERROR! Message ID \'{id_}\' does not exist OR invalid control level")
         print()
 
     ##################################################
@@ -67,7 +67,7 @@ class Interact:
     ################################################## 
     def display(self):
         print("Messages:")
-        self._p_messages.display()
+        self._p_messages.display(self._user_control_level)
         print()
 
     ##################################################
@@ -89,7 +89,7 @@ class Interact:
         if not self._p_messages.show(id_):
             print(f"ERROR! Message ID \'{id_}\' does not exist\n")
             return
-        self._p_messages.update(id_, self._prompt_for_line("message"))
+        self._p_messages.update(id_, self._prompt_for_line("message"), self._user_control_level)
         print()
             
     ##################################################
@@ -97,7 +97,7 @@ class Interact:
     # Remove one message from the list
     ################################################## 
     def remove(self):
-        self._p_messages.remove(self._prompt_for_id("delete"))
+        self._p_messages.remove(self._prompt_for_id("delete"), self._user_control_level)
 
     ##################################################
     # INTERACT :: PROMPT FOR LINE

@@ -44,6 +44,9 @@ class Message:
         Message._id_next += 1
         self._empty = False
 
+    def get_control_level(self):
+        return self._control_level
+
     ##################################################
     # MESSAGE :: GET ID
     # Determine the unique ID of this message
