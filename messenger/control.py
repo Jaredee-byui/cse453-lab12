@@ -17,8 +17,6 @@ class Control:
     """
     Confidentiality control following the Bell-LaPadula model
     """
-    def __init__(self, text_control: str):
-        self._control_access = CONTROL_LEVEL[text_control]
 
     def get_control_level(text_control: str):
         control_access = CONTROL_LEVEL[text_control]
